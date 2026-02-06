@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Be My Valentine?</title>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: Arial, sans-serif;
+    background: #f8d7e3;
+    overflow: hidden;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 20px;
+    background: white;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    color: #b3004b;
+  }
+
+  .arena {
+    position: relative;
+    height: 300px;
+    margin-top: 20px;
+    border: 2px dashed #ff99bb;
+    border-radius: 15px;
+    background: #fff5f9;
+  }
+
+  button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    transition: 0.2s;
+  }
+
+  #yesBtn {
+    background: #ff4d88;
+    color: white;
+    left: 25%;
+    top: 60%;
+  }
+
+  #noBtn {
+    background: #333;
+    color: white;
+    left: 55%;
+    top: 60%;
+  }
+
+  .result {
+    display: none;
+    margin-top: 20px;
+  }
+
+  .gif {
+    width: 300px;
+    max-width: 85%;
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Will you be my Valentine? ❤️</h1>
+  <p>Choose wisely. The universe is watching. (And so am I.)</p>
+
+  <div class="arena" id="arena">
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 🙃</button>
+  </div>
+
+  <div class="result" id="result">
+    <h2>Yessss! 🥰</h2>
+    <p>You just made my whole day.</p>
+
+    <img 
+      class="gif"
+      src="https://media.giphy.com/media/x28cIQSn19Tbi/giphy.gif"
+      alt="Blowing a kiss GIF"
+    >
+
+    <p style="font-size: 12px; opacity: 0.7;">
+      P.S. You can't click "No." I don't make the rules 😇
+    </p>
+  </div>
+</div>
+
+<script>
+  const arena = document.getElementById("arena");
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const result = document.getElementById("result");
+
+  function moveNoButton() {
+    const arenaRect = arena.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const maxX = arenaRect.width - btnRect.width;
+    const maxY = arenaRect.height - btnRect.height;
+
+    noBtn.style.left = (Math.random() * maxX) + "px";
+    noBtn.style.top  = (Math.random() * maxY) + "px";
+  }
+
+  noBtn.addEventListener("mouseenter", moveNoButton);
+  noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNoButton();
+  }, { passive: false });
+
+  noBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    moveNoButton();
+  });
+
+  yesBtn.addEventListener("click", function() {
+    result.style.display = "block";
+    yesBtn.disabled = true;
+    noBtn.disabled = true;
+  });
+
+  moveNoButton();
+</script>
+
+</body>
+</html>
+
